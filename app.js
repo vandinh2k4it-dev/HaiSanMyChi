@@ -18,7 +18,7 @@
     { id: "s3", name: "Cá tầm phi lê", description: "Lọc xương, dễ chế biến, hợp món chiên và hấp.", price: "Liên hệ", unit: "/kg", image_url: "", in_stock: true }
   ];
   var RECIPES = [
-    { cat: "soup", icon: "🍲", bg: "#fef2db", name: "Lẩu cá tầm măng chua", time: "35–45 phút", serves: "4 người",
+    { cat: "soup", icon: "🍲", bg: "#fef2db", img: "assets/img/lau-ca-tam.webp", alt: "Món lẩu cá tầm cay với dưa muối", credit: "Ảnh: fmmartian / Pixabay", name: "Lẩu cá tầm măng chua", time: "35–45 phút", serves: "4 người",
       ing: ["600–800 g cá tầm cắt khúc", "300 g măng chua, 2 quả cà chua", "Dứa, hành tím, thì là, rau ăn lẩu", "Nước dùng, nước mắm, gia vị"],
       steps: ["Rã đông cá trong ngăn mát, rửa nhanh và thấm ráo.", "Phi hành tím, xào cà chua và măng chua cho dậy mùi.", "Cho nước dùng và dứa vào, đun sôi, nêm chua ngọt vừa ăn.", "Thả cá vào nấu chín hoàn toàn, thêm thì là, ăn cùng bún và rau."] },
     { cat: "grill", icon: "🔥", bg: "#fff0e9", name: "Cá tầm nướng muối ớt", time: "30–40 phút", serves: "3–4 người",
@@ -165,7 +165,12 @@
     g.textContent = "";
     RECIPES.filter(function (r) { return filter === "all" || r.cat === filter; }).forEach(function (r) {
       var c = el("article", "rcard");
-      var art = el("div", "rart", r.icon); art.style.setProperty("--bg", r.bg);
+      var art = el("div", "rart" + (r.img ? " photo" : ""), r.img ? null : r.icon); art.style.setProperty("--bg", r.bg);
+      if (r.img) {
+        var ph = el("img"); ph.src = r.img; ph.alt = r.alt || r.name; ph.loading = "lazy";
+        art.appendChild(ph);
+        if (r.credit) art.appendChild(el("span", "rcredit", r.credit));
+      }
       var m = el("div", "rmain");
       m.appendChild(el("h3", null, r.name));
       m.appendChild(el("div", "rmeta", "⏱ " + r.time + " · 👥 " + r.serves));
