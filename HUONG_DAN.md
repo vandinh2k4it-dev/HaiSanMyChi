@@ -31,6 +31,11 @@ Cách dễ nhất là Netlify:
 3. Netlify cấp cho bạn một địa chỉ. Trang quản trị nằm ở `địa-chỉ-của-bạn/admin/`.
 4. Muốn dùng tên miền riêng (ví dụ `haisanmychi.vn`), mua tên miền rồi gắn trong mục **Domain management** của Netlify.
 
+## Bước 6 (tuỳ chọn). Cho phép sửa món ngon trong trang quản trị
+1. Trong Supabase, vào **SQL Editor** → **New query**.
+2. Mở file `supabase/recipes.sql`, chép toàn bộ dán vào, bấm **Run**.
+3. Vào `/admin/`, sẽ có tab **Món ngon** để thêm, sửa, ẩn, xoá món và đổi ảnh. Chưa chạy bước này thì trang web vẫn hiện 6 món mẫu có sẵn.
+
 ## Dùng hằng ngày
 - Mở `/admin/`, đăng nhập.
 - **Sản phẩm**: thêm, sửa giá, đổi ảnh, bấm "Báo hết hàng" khi hết cá.

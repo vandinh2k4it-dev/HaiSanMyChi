@@ -102,7 +102,7 @@ nav.links a:hover{color:#fff}
 .rcard{border:1px solid #d9ebf0;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 14px 36px #0d486112}
 .rart{height:120px;display:grid;place-items:center;font-size:60px;background:var(--bg)}
 .rart.photo{height:230px;position:relative;overflow:hidden}
-.rart.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 88%;display:block}
+.rart.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}
 .rcredit{position:absolute;right:8px;bottom:8px;background:#000a;color:#fff;font-size:10px;padding:3px 8px;border-radius:10px}
 .rmain{padding:18px}
 .rmain h3{margin:0 0 4px;font-size:19px;color:var(--navy)}

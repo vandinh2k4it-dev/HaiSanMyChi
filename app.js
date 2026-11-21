@@ -18,29 +18,32 @@
     { id: "s3", name: "Cá tầm phi lê", description: "Lọc xương, dễ chế biến, hợp món chiên và hấp.", price: "Liên hệ", unit: "/kg", image_url: "", in_stock: true }
   ];
   var RECIPES = [
-    { cat: "soup", icon: "🍲", bg: "#fef2db", img: "assets/img/lau-ca-tam.webp", alt: "Món lẩu cá tầm cay với dưa muối", credit: "Ảnh: fmmartian / Pixabay", name: "Lẩu cá tầm măng chua", time: "35–45 phút", serves: "4 người",
+    { cat: "soup", icon: "🍲", bg: "#fef2db", img: "assets/img/lau.webp", alt: "Mâm lẩu cá tầm với cá cắt khúc và rau ăn kèm", pos: "50% 55%", name: "Lẩu cá tầm măng chua", time: "35–45 phút", serves: "4 người",
       ing: ["600–800 g cá tầm cắt khúc", "300 g măng chua, 2 quả cà chua", "Dứa, hành tím, thì là, rau ăn lẩu", "Nước dùng, nước mắm, gia vị"],
       steps: ["Rã đông cá trong ngăn mát, rửa nhanh và thấm ráo.", "Phi hành tím, xào cà chua và măng chua cho dậy mùi.", "Cho nước dùng và dứa vào, đun sôi, nêm chua ngọt vừa ăn.", "Thả cá vào nấu chín hoàn toàn, thêm thì là, ăn cùng bún và rau."] },
-    { cat: "grill", icon: "🔥", bg: "#fff0e9", name: "Cá tầm nướng muối ớt", time: "30–40 phút", serves: "3–4 người",
+    { cat: "grill", icon: "🔥", bg: "#fff0e9", img: "assets/img/nuong.webp", alt: "Các món cá tầm ướp và nướng", pos: "50% 45%", name: "Cá tầm nướng muối ớt", time: "30–40 phút", serves: "3–4 người",
       ing: ["600 g cá tầm cắt khoanh", "Sả, tỏi, ớt băm, dầu ăn", "Muối, đường, nước mắm", "Rau sống, chanh ăn kèm"],
       steps: ["Rã đông trong ngăn mát, thấm khô từng khoanh cá.", "Trộn sả, tỏi, ớt và gia vị, ướp cá 15–20 phút trong ngăn mát.", "Nướng trên vỉ hoặc nồi chiên, trở mặt, phết chút dầu cho khỏi khô.", "Nướng đến khi thịt cá chín đục, dễ tách, dùng nóng với rau."] },
-    { cat: "steam", icon: "🥢", bg: "#e8f6e9", name: "Cá tầm hấp xì dầu", time: "25–30 phút", serves: "2–3 người",
+    { cat: "steam", icon: "🥢", bg: "#e8f6e9", img: "assets/img/hap.webp", alt: "Cá hấp với nấm trên đĩa", credit: "Ảnh minh họa: Pexels", name: "Cá tầm hấp xì dầu", time: "25–30 phút", serves: "2–3 người",
       ing: ["500–600 g cá tầm", "Gừng thái sợi, hành lá, nấm", "Xì dầu, chút đường, tiêu", "Dầu mè (tuỳ thích)"],
       steps: ["Đặt cá đã rã đông lên đĩa chịu nhiệt, rải gừng và nấm lên mặt.", "Pha xì dầu, đường và chút nước rồi rưới lên cá.", "Hấp khi nước đã sôi đến khi cá chín hoàn toàn.", "Thêm hành lá, tiêu và chút dầu mè trước khi dùng."] },
-    { cat: "fry", icon: "🍤", bg: "#fff1d6", name: "Cá tầm chiên giòn", time: "25–35 phút", serves: "3 người",
+    { cat: "fry", icon: "🍤", bg: "#fff1d6", img: "assets/img/chien.webp", alt: "Cá tầm chiên giòn bày trên đĩa", credit: "Ảnh: Pexels", name: "Cá tầm chiên giòn", time: "25–35 phút", serves: "3 người",
       ing: ["500 g cá tầm cắt miếng", "Bột chiên giòn, 1 quả trứng (tuỳ chọn)", "Muối, tiêu, tỏi băm", "Dầu ăn và nước chấm"],
       steps: ["Rã đông, thấm thật khô cá rồi ướp nhẹ muối tiêu.", "Áo đều lớp bột mỏng, có thể dùng trứng cho bột bám tốt hơn.", "Chiên dầu nóng lửa vừa, trở đều các mặt.", "Vớt ra để ráo khi cá chín bên trong, ăn ngay."] },
-    { cat: "braise", icon: "🍛", bg: "#fff1c8", name: "Cá tầm kho nghệ", time: "35–45 phút", serves: "3–4 người",
+    { cat: "braise", icon: "🍛", bg: "#fff1c8", img: "assets/img/kho.webp", alt: "Cá kho trong nồi đất", credit: "Ảnh minh họa: Pexels", name: "Cá tầm kho nghệ", time: "35–45 phút", serves: "3–4 người",
       ing: ["600 g cá tầm", "Nghệ tươi giã nhỏ hoặc bột nghệ", "Hành tím, tỏi, tiêu", "Nước mắm, đường, nước lọc"],
       steps: ["Ướp cá với nghệ, hành tỏi, nước mắm và chút đường.", "Cho cá vào nồi, thêm ít nước rồi đun sôi nhẹ.", "Hạ lửa, kho liu riu, trở cá cẩn thận kẻo nát.", "Nấu đến khi cá chín kỹ, nước kho sánh và vừa miệng."] },
-    { cat: "soup", icon: "🥣", bg: "#e4f7f4", name: "Canh chua cá tầm", time: "25–35 phút", serves: "4 người",
+    { cat: "soup", icon: "🥣", bg: "#e4f7f4", img: "assets/img/canh-chua.webp", alt: "Món canh cá tầm cay với dưa muối", credit: "Ảnh minh họa: fmmartian / Pixabay", pos: "50% 88%", name: "Canh chua cá tầm", time: "25–35 phút", serves: "4 người",
       ing: ["500–600 g cá tầm", "Cà chua, dứa, đậu bắp, bạc hà", "Me hoặc nước cốt chanh", "Rau ngổ, ngò gai, gia vị"],
       steps: ["Đun nước với cà chua và dứa, thêm me tạo vị chua.", "Cho cá vào nước đang sôi nhẹ, hớt bọt nếu cần.", "Thêm đậu bắp, bạc hà, nêm lại chua – mặn – ngọt.", "Nấu đến khi cá chín hoàn toàn rồi thêm rau thơm."] }
   ];
   var FILTERS = [["all", "Tất cả món"], ["soup", "🍲 Lẩu & canh"], ["grill", "🔥 Nướng"], ["steam", "♨️ Hấp"], ["fry", "🍳 Chiên"], ["braise", "🥘 Kho"]];
 
+  var CAT_BG = { soup: "#fef2db", grill: "#fff0e9", steam: "#e8f6e9", fry: "#fff1d6", braise: "#fff1c8" };
   var settings = Object.assign({}, DEFAULT_SETTINGS);
   var products = DEFAULT_PRODUCTS;
+  var recipes = RECIPES;
+  var currentFilter = "all";
 
   // ---- Tiện ích ----
   function $(s, r) { return (r || document).querySelector(s); }
@@ -62,6 +65,13 @@
   function safeImg(url) {
     return /^https:\/\/[^\s"'<>]+$/i.test(url || "") ? url : "";
   }
+  // Ảnh món ăn: cho phép đường dẫn trong website (assets/...) hoặc https
+  function safeAsset(url) {
+    return /^(https:\/\/|assets\/)[^\s"'<>]+$/i.test(url || "") ? url : "";
+  }
+  function lines(t) {
+    return String(t || "").split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+  }
 
   // ---- Nạp dữ liệu từ Supabase (chỉ đọc, qua REST) ----
   function loadRemote() {
@@ -71,12 +81,22 @@
     // Khoá kiểu cũ (JWT) cần thêm Authorization; khoá "sb_publishable_…" thì không.
     if (c.supabaseAnonKey.indexOf("sb_") !== 0) h.Authorization = "Bearer " + c.supabaseAnonKey;
     var base = c.supabaseUrl.replace(/\/$/, "") + "/rest/v1/";
+    // Bảng món ăn là tuỳ chọn: nếu chưa tạo hoặc lỗi thì giữ món mặc định.
+    var recipesReq = fetch(base + "recipes?select=*&visible=eq.true&order=sort.asc,created_at.asc", { headers: h })
+      .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
     return Promise.all([
       fetch(base + "settings?select=key,value", { headers: h }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }),
-      fetch(base + "products?select=*&order=sort.asc,created_at.asc", { headers: h }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      fetch(base + "products?select=*&order=sort.asc,created_at.asc", { headers: h }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }),
+      recipesReq
     ]).then(function (res) {
       res[0].forEach(function (row) { settings[row.key] = row.value; });
       if (res[1].length) products = res[1];
+      if (res[2] && res[2].length) {
+        recipes = res[2].map(function (x) {
+          return { cat: x.category, icon: x.icon || "🍲", bg: CAT_BG[x.category] || "#eaf8ff", img: x.image_url, alt: x.name, credit: x.credit,
+            name: x.name, time: x.time || "", serves: x.serves || "", pos: x.image_pos, ing: lines(x.ingredients), steps: lines(x.steps) };
+        });
+      }
     }).catch(function () {
       showToast("Chưa tải được dữ liệu mới, đang hiện thông tin mẫu.");
     });
@@ -163,11 +183,13 @@
   function renderRecipes(filter) {
     var g = $("#recipeGrid");
     g.textContent = "";
-    RECIPES.filter(function (r) { return filter === "all" || r.cat === filter; }).forEach(function (r) {
+    recipes.filter(function (r) { return filter === "all" || r.cat === filter; }).forEach(function (r) {
       var c = el("article", "rcard");
-      var art = el("div", "rart" + (r.img ? " photo" : ""), r.img ? null : r.icon); art.style.setProperty("--bg", r.bg);
-      if (r.img) {
-        var ph = el("img"); ph.src = r.img; ph.alt = r.alt || r.name; ph.loading = "lazy";
+      var img = safeAsset(r.img);
+      var art = el("div", "rart" + (img ? " photo" : ""), img ? null : r.icon); art.style.setProperty("--bg", r.bg);
+      if (img) {
+        var ph = el("img"); ph.src = img; ph.alt = r.alt || r.name; ph.loading = "lazy";
+        if (r.pos) ph.style.objectPosition = r.pos;
         art.appendChild(ph);
         if (r.credit) art.appendChild(el("span", "rcredit", r.credit));
       }
@@ -195,6 +217,7 @@
       b.addEventListener("click", function () {
         box.querySelectorAll(".chip").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
         b.setAttribute("aria-pressed", "true");
+        currentFilter = f[0];
         renderRecipes(f[0]);
       });
       box.appendChild(b);
@@ -237,6 +260,6 @@
   renderRecipes("all");
   renderSettings();
   renderProducts();
-  loadRemote().then(function () { renderSettings(); renderProducts(); });
+  loadRemote().then(function () { renderSettings(); renderProducts(); renderRecipes(currentFilter); });
   setInterval(renderStatus, 60000);
 })();

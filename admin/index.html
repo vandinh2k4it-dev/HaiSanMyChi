@@ -18,7 +18,7 @@ main{max-width:860px;margin:0 auto;padding:20px 16px 60px}
 h1,h2{color:var(--navy);margin:0 0 12px}
 h2{font-size:20px}
 label{display:block;font-size:13px;font-weight:700;color:#456579;margin:12px 0 5px}
-input[type=text],input[type=email],input[type=password],input[type=time],input[type=file],textarea{width:100%;padding:11px 12px;border:1px solid #bcd0df;border-radius:10px;font:inherit;background:#fff;min-height:44px}
+input[type=text],input[type=email],input[type=password],input[type=time],input[type=file],select,textarea{width:100%;padding:11px 12px;border:1px solid #bcd0df;border-radius:10px;font:inherit;background:#fff;min-height:44px}
 textarea{min-height:76px;resize:vertical}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .btn{border:0;border-radius:10px;padding:11px 18px;font-weight:800;font-size:14px;cursor:pointer;background:var(--blue);color:#fff;min-height:44px}
@@ -80,6 +80,7 @@ textarea{min-height:76px;resize:vertical}
   <div id="appView" hidden>
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" id="tabP" aria-selected="true">Sản phẩm</button>
+      <button class="tab" role="tab" id="tabR" aria-selected="false">Món ngon</button>
       <button class="tab" role="tab" id="tabS" aria-selected="false">Thông tin cửa hàng</button>
     </div>
 
@@ -117,6 +118,56 @@ textarea{min-height:76px;resize:vertical}
             <button class="btn ghost" type="button" id="cancelBtn">Huỷ</button>
           </div>
           <div class="msg" id="formMsg" role="status"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="paneR" hidden>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <h2 style="margin:0">Món ngon từ cá tầm</h2>
+          <button class="btn" id="rAdd">+ Thêm món</button>
+        </div>
+        <div id="rList" style="margin-top:8px"></div>
+        <div class="msg" id="rListMsg" role="status"></div>
+      </div>
+
+      <div class="card" id="rFormCard" hidden>
+        <h2 id="rFormTitle">Thêm món</h2>
+        <form id="rForm">
+          <label for="rName">Tên món</label>
+          <input id="rName" type="text" required maxlength="120">
+          <div class="row">
+            <div><label for="rCat">Nhóm món</label>
+              <select id="rCat">
+                <option value="soup">Lẩu &amp; canh</option><option value="grill">Nướng</option><option value="steam">Hấp</option>
+                <option value="fry">Chiên</option><option value="braise">Kho</option>
+              </select></div>
+            <div><label for="rIcon">Biểu tượng (emoji, hiện khi chưa có ảnh)</label><input id="rIcon" type="text" maxlength="4" value="🍲"></div>
+          </div>
+          <div class="row">
+            <div><label for="rTime">Thời gian nấu</label><input id="rTime" type="text" maxlength="40" placeholder="Ví dụ: 30–40 phút"></div>
+            <div><label for="rServes">Số người ăn</label><input id="rServes" type="text" maxlength="40" placeholder="Ví dụ: 3–4 người"></div>
+          </div>
+          <label for="rIng">Nguyên liệu (mỗi dòng một món)</label>
+          <textarea id="rIng" style="min-height:110px"></textarea>
+          <label for="rSteps">Các bước làm (mỗi dòng một bước)</label>
+          <textarea id="rSteps" style="min-height:140px"></textarea>
+          <label for="rFile">Ảnh món ăn (JPG/PNG/WebP, tối đa 3 MB)</label>
+          <input id="rFile" type="file" accept="image/jpeg,image/png,image/webp">
+          <img class="preview" id="rPrev" alt="Ảnh hiện tại" hidden>
+          <label for="rCredit">Ghi chú ảnh (tuỳ chọn, ví dụ: Ảnh minh họa: Pexels)</label>
+          <input id="rCredit" type="text" maxlength="80">
+          <div class="row">
+            <div><label for="rSort">Thứ tự hiển thị (số nhỏ hiện trước)</label><input id="rSort" type="text" inputmode="numeric" value="0"></div>
+            <div></div>
+          </div>
+          <label class="check"><input id="rVisible" type="checkbox" checked> Hiện trên trang web</label>
+          <div class="actions">
+            <button class="btn" type="submit" id="rSave">Lưu món</button>
+            <button class="btn ghost" type="button" id="rCancel">Huỷ</button>
+          </div>
+          <div class="msg" id="rFormMsg" role="status"></div>
         </form>
       </div>
     </section>
@@ -167,7 +218,7 @@ textarea{min-height:76px;resize:vertical}
     $("#loginView").hidden = logged;
     $("#appView").hidden = !logged;
     $("#logoutBtn").hidden = !logged;
-    if (logged) { loadProducts(); loadSettings(); }
+    if (logged) { loadProducts(); loadSettings(); loadRecipes(); }
   }
   sb.auth.getSession().then(function (r) { show(!!(r.data && r.data.session)); });
   sb.auth.onAuthStateChange(function (_e, session) { show(!!session); });
@@ -184,12 +235,105 @@ textarea{min-height:76px;resize:vertical}
   $("#logoutBtn").addEventListener("click", function () { sb.auth.signOut(); });
 
   function tab(which) {
-    var p = which === "p";
-    $("#tabP").setAttribute("aria-selected", p); $("#tabS").setAttribute("aria-selected", !p);
-    $("#paneP").hidden = !p; $("#paneS").hidden = p;
+    ["P", "R", "S"].forEach(function (k) {
+      var on = which === k.toLowerCase();
+      $("#tab" + k).setAttribute("aria-selected", on);
+      $("#pane" + k).hidden = !on;
+    });
   }
   $("#tabP").addEventListener("click", function () { tab("p"); });
+  $("#tabR").addEventListener("click", function () { tab("r"); });
   $("#tabS").addEventListener("click", function () { tab("s"); });
+
+  // ---- Món ngon ----
+  var CAT_LABEL = { soup: "Lẩu & canh", grill: "Nướng", steam: "Hấp", fry: "Chiên", braise: "Kho" };
+  var rEditing = null, rImage = "";
+  function imgSrc(u) {
+    if (/^https:\/\//.test(u || "")) return u;
+    if (/^assets\//.test(u || "")) return "../" + u;
+    return "";
+  }
+  function loadRecipes() {
+    sb.from("recipes").select("*").order("sort", { ascending: true }).order("created_at", { ascending: true }).then(function (r) {
+      var box = $("#rList"); box.textContent = "";
+      if (r.error) { say($("#rListMsg"), "Chưa có bảng món ăn. Hãy chạy file supabase/recipes.sql trong Supabase (xem HUONG_DAN.md), rồi tải lại trang."); $("#rAdd").disabled = true; return; }
+      $("#rAdd").disabled = false; say($("#rListMsg"), "");
+      if (!r.data.length) box.appendChild(el("p", "hint", "Chưa có món nào. Trang web đang hiện 6 món mẫu. Bấm “Thêm món” để dùng danh sách của riêng bạn."));
+      r.data.forEach(function (p) {
+        var it = el("div", "item");
+        var th = el("div", "thumb"); var src = imgSrc(p.image_url);
+        if (src) { var im = el("img"); im.src = src; im.alt = ""; th.appendChild(im); } else th.textContent = p.icon || "🍲";
+        var info = el("div");
+        info.appendChild(el("b", null, p.name));
+        info.appendChild(el("span", "hint", (CAT_LABEL[p.category] || p.category) + " · "));
+        info.appendChild(el("span", "pill" + (p.visible ? "" : " off"), p.visible ? "Đang hiện" : "Đang ẩn"));
+        var ops = el("div", "ops");
+        var b1 = el("button", "btn ghost small", p.visible ? "Ẩn" : "Hiện");
+        b1.addEventListener("click", function () {
+          sb.from("recipes").update({ visible: !p.visible }).eq("id", p.id).then(function (x) {
+            if (x.error) say($("#rListMsg"), "Chưa cập nhật được. Thử lại sau."); else loadRecipes();
+          });
+        });
+        var b2 = el("button", "btn ghost small", "Sửa"); b2.addEventListener("click", function () { openRecipe(p); });
+        var b3 = el("button", "btn danger small", "Xoá");
+        b3.addEventListener("click", function () {
+          if (!confirm("Xoá món “" + p.name + "”? Không thể hoàn tác.")) return;
+          sb.from("recipes").delete().eq("id", p.id).then(function (x) {
+            if (x.error) say($("#rListMsg"), "Chưa xoá được. Thử lại sau."); else loadRecipes();
+          });
+        });
+        ops.appendChild(b1); ops.appendChild(b2); ops.appendChild(b3);
+        it.appendChild(th); it.appendChild(info); it.appendChild(ops); box.appendChild(it);
+      });
+    });
+  }
+  function openRecipe(p) {
+    rEditing = p || null; rImage = p ? (p.image_url || "") : "";
+    $("#rFormTitle").textContent = p ? "Sửa món" : "Thêm món";
+    $("#rName").value = p ? p.name : ""; $("#rCat").value = p ? p.category : "soup"; $("#rIcon").value = p ? p.icon : "🍲";
+    $("#rTime").value = p ? p.time : ""; $("#rServes").value = p ? p.serves : "";
+    $("#rIng").value = p ? p.ingredients : ""; $("#rSteps").value = p ? p.steps : "";
+    $("#rCredit").value = p ? p.credit : ""; $("#rSort").value = p ? p.sort : 0; $("#rVisible").checked = p ? p.visible : true;
+    $("#rFile").value = "";
+    var pv = $("#rPrev"), s = imgSrc(rImage); pv.hidden = !s; if (s) pv.src = s;
+    say($("#rFormMsg"), ""); $("#rFormCard").hidden = false; $("#rName").focus();
+    $("#rFormCard").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  $("#rAdd").addEventListener("click", function () { openRecipe(null); });
+  $("#rCancel").addEventListener("click", function () { $("#rFormCard").hidden = true; });
+  $("#rForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var btn = $("#rSave"); btn.disabled = true; say($("#rFormMsg"), "Đang lưu…", true);
+    var file = $("#rFile").files[0], up = Promise.resolve(rImage);
+    if (file) {
+      var ext = ({ "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" })[file.type];
+      if (file.size > 3 * 1024 * 1024) { btn.disabled = false; say($("#rFormMsg"), "Ảnh lớn hơn 3 MB. Hãy chọn ảnh nhỏ hơn."); return; }
+      if (!ext) { btn.disabled = false; say($("#rFormMsg"), "Chỉ nhận ảnh JPG, PNG hoặc WebP."); return; }
+      var path = "recipes/" + Date.now() + "-" + Math.random().toString(36).slice(2, 8) + "." + ext;
+      up = sb.storage.from("product-images").upload(path, file, { contentType: file.type }).then(function (r) {
+        if (r.error) throw new Error("upload");
+        return sb.storage.from("product-images").getPublicUrl(path).data.publicUrl;
+      });
+    }
+    up.then(function (url) {
+      var row = {
+        name: $("#rName").value.trim(), category: $("#rCat").value, icon: $("#rIcon").value.trim() || "🍲",
+        time: $("#rTime").value.trim(), serves: $("#rServes").value.trim(),
+        ingredients: $("#rIng").value.trim(), steps: $("#rSteps").value.trim(),
+        image_url: url || "", credit: $("#rCredit").value.trim(),
+        sort: parseInt($("#rSort").value, 10) || 0, visible: $("#rVisible").checked
+      };
+      if (file) row.image_pos = "50% 50%";
+      return rEditing ? sb.from("recipes").update(row).eq("id", rEditing.id) : sb.from("recipes").insert(row);
+    }).then(function (r) {
+      btn.disabled = false;
+      if (r.error) { say($("#rFormMsg"), "Chưa lưu được. Kiểm tra mạng rồi thử lại."); return; }
+      $("#rFormCard").hidden = true; loadRecipes(); say($("#rListMsg"), "Đã lưu món.", true);
+    }).catch(function (err) {
+      btn.disabled = false;
+      say($("#rFormMsg"), err && err.message === "upload" ? "Chưa tải được ảnh lên. Thử ảnh khác hoặc thử lại sau." : "Chưa lưu được. Thử lại sau.");
+    });
+  });
 
   // ---- Sản phẩm ----
   function loadProducts() {
