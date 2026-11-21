@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Quản trị | Hải Sản Mỹ Chi</title>
+<link rel="icon" href="../assets/logo.webp">
+<style>
+:root{--navy:#06264d;--blue:#0a6cf0;--blue-d:#0757c4;--ink:#102d43;--muted:#5b7587;--border:#d8e8f2;--bad:#b3261e;--ok:#12805c}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#f1f6fa;color:var(--ink);line-height:1.5}
+header{background:linear-gradient(120deg,#052a55,#0a5fc0);color:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+header .b{display:flex;align-items:center;gap:10px;font-weight:800}
+header img{width:38px;height:38px;border-radius:50%;border:2px solid #fff}
+main{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 6px 20px #0d48610f}
+h1,h2{color:var(--navy);margin:0 0 12px}
+h2{font-size:20px}
+label{display:block;font-size:13px;font-weight:700;color:#456579;margin:12px 0 5px}
+input[type=text],input[type=email],input[type=password],input[type=time],input[type=file],textarea{width:100%;padding:11px 12px;border:1px solid #bcd0df;border-radius:10px;font:inherit;background:#fff;min-height:44px}
+textarea{min-height:76px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:800;font-size:14px;cursor:pointer;background:var(--blue);color:#fff;min-height:44px}
+.btn:hover{background:var(--blue-d)}
+.btn.ghost{background:#fff;color:var(--blue-d);border:1px solid #b9d6f2}
+.btn.danger{background:#fff;color:var(--bad);border:1px solid #e3b4b0}
+.btn.small{padding:7px 12px;min-height:38px;font-size:13px}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.msg{margin-top:12px;font-size:14px;font-weight:700}
+.msg.ok{color:var(--ok)}.msg.err{color:var(--bad)}
+.hint{font-size:13px;color:var(--muted)}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{border:1px solid #b9d6f2;background:#fff;border-radius:30px;padding:10px 18px;font-weight:800;color:var(--blue-d);cursor:pointer;min-height:44px}
+.tab[aria-selected="true"]{background:var(--blue);color:#fff;border-color:var(--blue)}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #e6eef4}
+.item:last-child{border:0}
+.thumb{width:64px;height:64px;border-radius:12px;background:#e3f1fd;display:grid;place-items:center;font-size:28px;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.item b{display:block}
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;background:#dff5ea;color:var(--ok)}
+.pill.off{background:#fbe3e1;color:var(--bad)}
+.item .ops{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.check{display:flex;align-items:center;gap:10px;margin-top:14px;font-weight:700}
+.check input{width:20px;height:20px}
+.preview{max-width:160px;border-radius:12px;margin-top:8px;display:block}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid #ffb300;outline-offset:2px}
+@media(max-width:560px){.row{grid-template-columns:1fr}.item{grid-template-columns:56px 1fr}.item .ops{grid-column:1/-1;justify-content:flex-start}}
+</style>
+</head>
+<body>
+<header>
+  <div class="b"><img src="../assets/logo.webp" alt=""><span>Quản trị Hải Sản Mỹ Chi</span></div>
+  <div><a href="../index.html" style="color:#cfe6ff;font-size:14px;margin-right:12px">Xem trang web</a><button class="btn ghost small" id="logoutBtn" hidden>Đăng xuất</button></div>
+</header>
+
+<main>
+  <!-- Chưa cấu hình -->
+  <section class="card" id="noConfig" hidden>
+    <h2>Chưa nối Supabase</h2>
+    <p>Mở file <b>config.js</b> ở thư mục gốc, điền <b>supabaseUrl</b> và <b>supabaseAnonKey</b> theo hướng dẫn trong <b>HUONG_DAN.md</b>, rồi tải lại trang này.</p>
+  </section>
+
+  <!-- Đăng nhập -->
+  <section class="card" id="loginView" hidden>
+    <h1>Đăng nhập</h1>
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="username" required>
+      <label for="pw">Mật khẩu</label>
+      <input id="pw" type="password" autocomplete="current-password" required>
+      <div class="actions"><button class="btn" type="submit" id="loginBtn">Đăng nhập</button></div>
+      <div class="msg err" id="loginMsg" role="alert"></div>
+    </form>
+  </section>
+
+  <!-- Quản trị -->
+  <div id="appView" hidden>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tabP" aria-selected="true">Sản phẩm</button>
+      <button class="tab" role="tab" id="tabS" aria-selected="false">Thông tin cửa hàng</button>
+    </div>
+
+    <section id="paneP">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <h2 style="margin:0">Danh sách sản phẩm</h2>
+          <button class="btn" id="addBtn">+ Thêm sản phẩm</button>
+        </div>
+        <div id="list" style="margin-top:8px"></div>
+        <div class="msg" id="listMsg" role="status"></div>
+      </div>
+
+      <div class="card" id="formCard" hidden>
+        <h2 id="formTitle">Thêm sản phẩm</h2>
+        <form id="pForm">
+          <label for="pName">Tên sản phẩm</label>
+          <input id="pName" type="text" required maxlength="120">
+          <label for="pDesc">Mô tả ngắn</label>
+          <textarea id="pDesc" maxlength="300"></textarea>
+          <div class="row">
+            <div><label for="pPrice">Giá (có thể ghi “Liên hệ”)</label><input id="pPrice" type="text" maxlength="40" placeholder="Ví dụ: 350.000đ hoặc Liên hệ"></div>
+            <div><label for="pUnit">Đơn vị</label><input id="pUnit" type="text" maxlength="20" placeholder="/kg"></div>
+          </div>
+          <div class="row">
+            <div><label for="pSort">Thứ tự hiển thị (số nhỏ hiện trước)</label><input id="pSort" type="text" inputmode="numeric" value="0"></div>
+            <div></div>
+          </div>
+          <label for="pFile">Ảnh sản phẩm (JPG/PNG/WebP, tối đa 3 MB)</label>
+          <input id="pFile" type="file" accept="image/jpeg,image/png,image/webp">
+          <img class="preview" id="pPrev" alt="Ảnh hiện tại" hidden>
+          <label class="check"><input id="pStock" type="checkbox" checked> Còn hàng</label>
+          <div class="actions">
+            <button class="btn" type="submit" id="saveBtn">Lưu sản phẩm</button>
+            <button class="btn ghost" type="button" id="cancelBtn">Huỷ</button>
+          </div>
+          <div class="msg" id="formMsg" role="status"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="paneS" hidden>
+      <div class="card">
+        <h2>Thông tin cửa hàng</h2>
+        <form id="sForm">
+          <label for="sZalo">Số Zalo</label>
+          <input id="sZalo" type="text" inputmode="tel" required maxlength="15">
+          <div class="row">
+            <div><label for="sOpen">Giờ mở cửa</label><input id="sOpen" type="time" required></div>
+            <div><label for="sClose">Giờ đóng cửa</label><input id="sClose" type="time" required></div>
+          </div>
+          <label for="sArea">Khu vực giao hàng</label>
+          <textarea id="sArea" maxlength="300"></textarea>
+          <label for="sBanner">Thông báo / khuyến mãi (hiện trên đầu trang web)</label>
+          <input id="sBanner" type="text" maxlength="160" placeholder="Ví dụ: Giảm 10% đơn đầu tiên">
+          <label class="check"><input id="sBannerOn" type="checkbox"> Hiện thông báo này</label>
+          <div class="actions"><button class="btn" type="submit" id="sSave">Lưu thông tin</button></div>
+          <div class="msg" id="sMsg" role="status"></div>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.js"></script>
+<script src="../config.js"></script>
+<script>
+(function () {
+  "use strict";
+  var cfg = window.SITE_CONFIG || {};
+  var $ = function (s) { return document.querySelector(s); };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function say(node, text, ok) { node.textContent = text || ""; node.className = "msg" + (text ? (ok ? " ok" : " err") : ""); }
+
+  if (!cfg.supabaseUrl || !cfg.supabaseAnonKey || !window.supabase) { $("#noConfig").hidden = false; return; }
+  var sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+  var editing = null;     // sản phẩm đang sửa (null = thêm mới)
+  var imageUrl = "";
+
+  function show(logged) {
+    $("#loginView").hidden = logged;
+    $("#appView").hidden = !logged;
+    $("#logoutBtn").hidden = !logged;
+    if (logged) { loadProducts(); loadSettings(); }
+  }
+  sb.auth.getSession().then(function (r) { show(!!(r.data && r.data.session)); });
+  sb.auth.onAuthStateChange(function (_e, session) { show(!!session); });
+
+  $("#loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    $("#loginBtn").disabled = true; say($("#loginMsg"), "");
+    sb.auth.signInWithPassword({ email: $("#email").value.trim(), password: $("#pw").value }).then(function (r) {
+      $("#loginBtn").disabled = false;
+      if (r.error) say($("#loginMsg"), "Email hoặc mật khẩu chưa đúng. Kiểm tra lại rồi thử lần nữa.");
+      else $("#pw").value = "";
+    });
+  });
+  $("#logoutBtn").addEventListener("click", function () { sb.auth.signOut(); });
+
+  function tab(which) {
+    var p = which === "p";
+    $("#tabP").setAttribute("aria-selected", p); $("#tabS").setAttribute("aria-selected", !p);
+    $("#paneP").hidden = !p; $("#paneS").hidden = p;
+  }
+  $("#tabP").addEventListener("click", function () { tab("p"); });
+  $("#tabS").addEventListener("click", function () { tab("s"); });
+
+  // ---- Sản phẩm ----
+  function loadProducts() {
+    sb.from("products").select("*").order("sort", { ascending: true }).order("created_at", { ascending: true }).then(function (r) {
+      var box = $("#list"); box.textContent = "";
+      if (r.error) { say($("#listMsg"), "Không tải được danh sách. Tải lại trang thử lại."); return; }
+      say($("#listMsg"), "");
+      if (!r.data.length) box.appendChild(el("p", "hint", "Chưa có sản phẩm. Bấm “Thêm sản phẩm” để bắt đầu."));
+      r.data.forEach(function (p) {
+        var it = el("div", "item");
+        var th = el("div", "thumb");
+        if (/^https:\/\//.test(p.image_url || "")) { var im = el("img"); im.src = p.image_url; im.alt = ""; th.appendChild(im); } else th.textContent = "🐟";
+        var info = el("div");
+        info.appendChild(el("b", null, p.name));
+        info.appendChild(el("span", "hint", (p.price || "Liên hệ") + (/\d/.test(p.price || "") ? " " + (p.unit || "") : "") + " · "));
+        info.appendChild(el("span", "pill" + (p.in_stock ? "" : " off"), p.in_stock ? "Còn hàng" : "Hết hàng"));
+        var ops = el("div", "ops");
+        var b1 = el("button", "btn ghost small", p.in_stock ? "Báo hết hàng" : "Báo còn hàng");
+        b1.addEventListener("click", function () {
+          sb.from("products").update({ in_stock: !p.in_stock }).eq("id", p.id).then(function (x) {
+            if (x.error) say($("#listMsg"), "Chưa cập nhật được. Thử lại sau."); else loadProducts();
+          });
+        });
+        var b2 = el("button", "btn ghost small", "Sửa"); b2.addEventListener("click", function () { openForm(p); });
+        var b3 = el("button", "btn danger small", "Xoá");
+        b3.addEventListener("click", function () {
+          if (!confirm("Xoá sản phẩm “" + p.name + "”? Không thể hoàn tác.")) return;
+          sb.from("products").delete().eq("id", p.id).then(function (x) {
+            if (x.error) say($("#listMsg"), "Chưa xoá được. Thử lại sau."); else loadProducts();
+          });
+        });
+        ops.appendChild(b1); ops.appendChild(b2); ops.appendChild(b3);
+        it.appendChild(th); it.appendChild(info); it.appendChild(ops);
+        box.appendChild(it);
+      });
+    });
+  }
+
+  function openForm(p) {
+    editing = p || null; imageUrl = p ? (p.image_url || "") : "";
+    $("#formTitle").textContent = p ? "Sửa sản phẩm" : "Thêm sản phẩm";
+    $("#pName").value = p ? p.name : ""; $("#pDesc").value = p ? p.description : "";
+    $("#pPrice").value = p ? p.price : "Liên hệ"; $("#pUnit").value = p ? p.unit : "/kg";
+    $("#pSort").value = p ? p.sort : 0; $("#pStock").checked = p ? p.in_stock : true;
+    $("#pFile").value = "";
+    var pv = $("#pPrev"); pv.hidden = !/^https:\/\//.test(imageUrl); if (!pv.hidden) pv.src = imageUrl;
+    say($("#formMsg"), "");
+    $("#formCard").hidden = false; $("#pName").focus();
+    $("#formCard").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  $("#addBtn").addEventListener("click", function () { openForm(null); });
+  $("#cancelBtn").addEventListener("click", function () { $("#formCard").hidden = true; });
+
+  $("#pForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var btn = $("#saveBtn"); btn.disabled = true; say($("#formMsg"), "Đang lưu…", true);
+    var file = $("#pFile").files[0];
+    var up = Promise.resolve(imageUrl);
+    if (file) {
+      if (file.size > 3 * 1024 * 1024) { btn.disabled = false; say($("#formMsg"), "Ảnh lớn hơn 3 MB. Hãy chọn ảnh nhỏ hơn."); return; }
+      var ext = ({ "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" })[file.type];
+      if (!ext) { btn.disabled = false; say($("#formMsg"), "Chỉ nhận ảnh JPG, PNG hoặc WebP."); return; }
+      var path = Date.now() + "-" + Math.random().toString(36).slice(2, 8) + "." + ext;
+      up = sb.storage.from("product-images").upload(path, file, { contentType: file.type }).then(function (r) {
+        if (r.error) throw new Error("upload");
+        return sb.storage.from("product-images").getPublicUrl(path).data.publicUrl;
+      });
+    }
+    up.then(function (url) {
+      var row = {
+        name: $("#pName").value.trim(), description: $("#pDesc").value.trim(),
+        price: $("#pPrice").value.trim() || "Liên hệ", unit: $("#pUnit").value.trim(),
+        sort: parseInt($("#pSort").value, 10) || 0, in_stock: $("#pStock").checked, image_url: url || ""
+      };
+      return editing ? sb.from("products").update(row).eq("id", editing.id) : sb.from("products").insert(row);
+    }).then(function (r) {
+      btn.disabled = false;
+      if (r.error) { say($("#formMsg"), "Chưa lưu được. Kiểm tra mạng rồi thử lại."); return; }
+      $("#formCard").hidden = true; loadProducts(); say($("#listMsg"), "Đã lưu sản phẩm.", true);
+    }).catch(function (err) {
+      btn.disabled = false;
+      say($("#formMsg"), err && err.message === "upload" ? "Chưa tải được ảnh lên. Thử ảnh khác hoặc thử lại sau." : "Chưa lưu được. Thử lại sau.");
+    });
+  });
+
+  // ---- Thông tin cửa hàng ----
+  function loadSettings() {
+    sb.from("settings").select("key,value").then(function (r) {
+      if (r.error) { say($("#sMsg"), "Không tải được thông tin cửa hàng."); return; }
+      var s = {}; r.data.forEach(function (x) { s[x.key] = x.value; });
+      $("#sZalo").value = s.zalo || ""; $("#sOpen").value = s.open_time || "08:00"; $("#sClose").value = s.close_time || "18:00";
+      $("#sArea").value = s.delivery_area || ""; $("#sBanner").value = s.banner_text || ""; $("#sBannerOn").checked = s.banner_on === "true";
+    });
+  }
+  $("#sForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var zalo = $("#sZalo").value.replace(/\D/g, "");
+    if (zalo.length < 9) { say($("#sMsg"), "Số Zalo chưa đúng. Nhập số điện thoại, ví dụ 0336544246."); return; }
+    var rows = [
+      { key: "zalo", value: zalo }, { key: "open_time", value: $("#sOpen").value }, { key: "close_time", value: $("#sClose").value },
+      { key: "delivery_area", value: $("#sArea").value.trim() }, { key: "banner_text", value: $("#sBanner").value.trim() },
+      { key: "banner_on", value: $("#sBannerOn").checked ? "true" : "false" }
+    ];
+    $("#sSave").disabled = true; say($("#sMsg"), "Đang lưu…", true);
+    sb.from("settings").upsert(rows).then(function (r) {
+      $("#sSave").disabled = false;
+      say($("#sMsg"), r.error ? "Chưa lưu được. Thử lại sau." : "Đã lưu. Trang web sẽ cập nhật ngay.", !r.error);
+    });
+  });
+})();
+</script>
+</body>
+</html>

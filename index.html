@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#052a55">
+<title>Hải Sản Mỹ Chi | Cá tầm tươi, đặt qua Zalo</title>
+<meta name="description" content="Hải Sản Mỹ Chi chuyên cá tầm. Xem sản phẩm, hỏi giá và đặt hàng nhanh qua Zalo.">
+<link rel="icon" href="assets/logo.webp">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="promo" id="promo" hidden></div>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="#top">
+      <img src="assets/logo.webp" alt="Logo Hải Sản Mỹ Chi">
+      <span><strong>HẢI SẢN MỸ CHI</strong><small>Chuyên cá tầm</small></span>
+    </a>
+    <nav class="links" aria-label="Điều hướng">
+      <a href="#sanpham">Sản phẩm</a>
+      <a href="#cauchuyen">Cam kết</a>
+      <a href="#monngon">Món ngon</a>
+      <a href="#lienhe">Liên hệ</a>
+    </nav>
+    <a class="btn zalo small zalo-link" href="#" target="_blank" rel="noopener">Nhắn Zalo</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="bubbles" aria-hidden="true">
+      <span style="--x:6%;--s:13px;--d:9s;--dl:-2s"></span><span style="--x:22%;--s:8px;--d:12s;--dl:-6s"></span>
+      <span style="--x:44%;--s:16px;--d:10s;--dl:-5s"></span><span style="--x:66%;--s:9px;--d:13s;--dl:-3s"></span>
+      <span style="--x:80%;--s:19px;--d:11s;--dl:-8s"></span><span style="--x:93%;--s:11px;--d:9s;--dl:-4s"></span>
+    </div>
+    <div class="heroinner">
+      <div>
+        <span class="status" id="status"><i></i><span>Đang kiểm tra giờ mở cửa…</span></span>
+        <h1>Cá tầm tươi ngon,<br><em>đặt nhanh qua Zalo.</em></h1>
+        <p>Hải Sản Mỹ Chi chuyên cá tầm sơ chế sạch sẽ, chia phần gọn gàng. Chọn món bên dưới rồi nhắn Zalo, bên mình báo giá và giao tận nơi.</p>
+        <div class="heroactions">
+          <a class="btn zalo zalo-link" href="#" target="_blank" rel="noopener">💬 Nhắn Zalo đặt hàng</a>
+          <a class="btn ghost" href="#sanpham">Xem sản phẩm ↓</a>
+        </div>
+      </div>
+      <div class="logo-card">
+        <img src="assets/logo.webp" alt="Hải Sản Mỹ Chi">
+        <span class="tag">🐟 Cá tầm • giao tận nơi</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section products" id="sanpham">
+    <div class="wrap">
+      <span class="kicker">Sản phẩm</span>
+      <h2 class="heading">Cá tầm Mỹ Chi</h2>
+      <p class="sub">Giá có thể thay đổi theo ngày. Bấm “Hỏi giá qua Zalo” để được báo giá và tư vấn cách chọn phần phù hợp.</p>
+      <div class="grid" id="productGrid" aria-live="polite">
+        <div class="empty">Đang tải sản phẩm…</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section story" id="cauchuyen">
+    <div class="wrap">
+      <span class="kicker">Lời hứa từ Mỹ Chi</span>
+      <h2 class="heading">Cá tầm ngon bắt đầu từ lựa chọn kỹ lưỡng.</h2>
+      <p class="sub">Chất lượng không chỉ nằm ở bao bì đẹp. Quan trọng là cá được chọn thế nào và được xử lý đúng lúc.</p>
+      <div class="panels">
+        <article class="panel"><span class="n">01</span><h3>Chọn cá kỹ</h3><p>Cá tầm được chọn lựa từ đầu, bắt đầu hành trình sơ chế khi còn sống.</p></article>
+        <article class="panel"><span class="n">02</span><h3>Sơ chế sạch sẽ</h3><p>Làm sạch, chia phần vừa ăn để gia đình dùng tiện và đỡ tốn công.</p></article>
+        <article class="panel"><span class="n">03</span><h3>Giữ lạnh đúng cách</h3><p>Sau sơ chế, cá được bảo quản lạnh để giữ chất lượng đến khi đến tay bạn.</p></article>
+      </div>
+      <blockquote class="quote">“Chúng tôi chăm chút từ lúc chọn cá, để bữa ăn của bạn thêm an tâm và trọn vị.”<span>— Hải Sản Mỹ Chi</span></blockquote>
+    </div>
+  </section>
+
+  <section class="section recipes" id="monngon">
+    <div class="wrap">
+      <span class="kicker">Góc bếp Mỹ Chi</span>
+      <h2 class="heading">Món ngon từ cá tầm</h2>
+      <p class="sub">Sáu cách chế biến đơn giản cho bữa cơm gia đình. Bấm vào từng món để xem nguyên liệu và cách làm.</p>
+      <div class="filters" id="filters" role="group" aria-label="Lọc món ăn"></div>
+      <div class="rgrid" id="recipeGrid"></div>
+      <div class="tip"><span aria-hidden="true">❄️</span><div><strong>Mẹo để cá ngon và an toàn.</strong> Rã đông trong ngăn mát tủ lạnh, không để ngoài nhiệt độ phòng. Nấu chín hoàn toàn trước khi dùng. Thời gian nấu chỉ mang tính tham khảo, tuỳ độ dày miếng cá.</div></div>
+    </div>
+  </section>
+
+  <section class="section contact" id="lienhe">
+    <div class="wrap">
+      <span class="kicker" style="color:#9fd0ff">Liên hệ</span>
+      <h2 class="heading">Đặt hàng chỉ cần một tin nhắn.</h2>
+      <p class="sub">Nhắn tên món và số lượng, bên mình phản hồi trong giờ mở cửa.</p>
+      <div class="cinfo">
+        <div class="cbox"><b>Zalo / Điện thoại</b><span id="cZalo">…</span></div>
+        <div class="cbox"><b>Giờ mở cửa</b><span id="cHours">…</span></div>
+        <div class="cbox"><b>Khu vực giao hàng</b><span id="cArea">…</span></div>
+      </div>
+      <a class="btn zalo-link" href="#" target="_blank" rel="noopener">💬 Nhắn Zalo ngay</a>
+    </div>
+  </section>
+</main>
+
+<footer>© <span id="year"></span> Hải Sản Mỹ Chi · Chuyên cá tầm</footer>
+
+<a class="fab zalo-link" href="#" target="_blank" rel="noopener" aria-label="Nhắn Zalo">💬 Nhắn Zalo</a>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
