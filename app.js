@@ -181,8 +181,38 @@
     });
   }
 
+  // ---- Video hướng dẫn trên YouTube (bấm mới tải, để trang nhẹ) ----
+  var YT = [
+    { id: "FxCnhYT9J10", title: "Lẩu cá tầm măng chua", by: "Bếp Của Vợ" },
+    { id: "ARMPvGyV8Iw", title: "Cá tầm nướng muối ớt", by: "LÝ HƯƠNG TV" },
+    { id: "bJVoDQMDADY", title: "Canh chua cá tầm măng", by: "Cook béo" }
+  ];
+  function renderYT() {
+    var g = $("#ytGrid");
+    if (!g) return;
+    YT.forEach(function (v) {
+      var f = el("figure", "ycard");
+      var btn = el("button", "yplay");
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Phát video: " + v.title);
+      var img = el("img"); img.src = "https://i.ytimg.com/vi/" + v.id + "/hqdefault.jpg"; img.alt = ""; img.loading = "lazy";
+      btn.appendChild(img); btn.appendChild(el("span", "ytri", "▶"));
+      btn.addEventListener("click", function () {
+        var ifr = el("iframe");
+        ifr.src = "https://www.youtube-nocookie.com/embed/" + v.id + "?autoplay=1&rel=0";
+        ifr.title = v.title; ifr.allow = "autoplay; encrypted-media; picture-in-picture"; ifr.allowFullscreen = true;
+        ifr.referrerPolicy = "strict-origin-when-cross-origin";
+        btn.replaceWith(ifr);
+      });
+      f.appendChild(btn);
+      f.appendChild(el("figcaption", null, v.title + " · kênh " + v.by));
+      g.appendChild(f);
+    });
+  }
+
   // ---- Khởi động ----
   $("#year").textContent = new Date().getFullYear();
+  renderYT();
   renderFilters();
   renderRecipes("all");
   renderSettings();
