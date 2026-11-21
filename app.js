@@ -8,7 +8,9 @@
     close_time: "18:00",
     delivery_area: "Nhắn Zalo để biết khu vực giao hàng",
     banner_text: "",
-    banner_on: "false"
+    banner_on: "false",
+    phone: "",
+    address: ""
   };
   var DEFAULT_PRODUCTS = [
     { id: "s1", name: "Cá tầm nguyên con sơ chế", description: "Đã làm sạch, sẵn sàng nấu lẩu, nướng, hấp.", price: "Liên hệ", unit: "/kg", image_url: "", in_stock: true },
@@ -87,6 +89,19 @@
     $("#cZalo").textContent = settings.zalo;
     $("#cHours").textContent = settings.open_time + " – " + settings.close_time + " hằng ngày";
     $("#cArea").textContent = settings.delivery_area;
+    var tel = "tel:" + (digits(settings.phone) || digits(settings.zalo));
+    document.querySelectorAll(".tel-link").forEach(function (a) { a.href = tel; });
+    var addr = (settings.address || "").trim();
+    $("#addrBox").hidden = !addr;
+    $("#mapWrap").hidden = !addr;
+    $("#dirBtn").hidden = !addr;
+    if (addr) {
+      $("#cAddr").textContent = addr;
+      $("#dirBtn").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(addr);
+      var mapSrc = "https://www.google.com/maps?q=" + encodeURIComponent(addr) + "&output=embed";
+      var fr = $("#mapFrame");
+      if (fr.getAttribute("src") !== mapSrc) fr.setAttribute("src", mapSrc);
+    }
     var promo = $("#promo");
     if (settings.banner_on === "true" && settings.banner_text) {
       promo.textContent = settings.banner_text;

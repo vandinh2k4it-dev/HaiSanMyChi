@@ -43,6 +43,7 @@
         <p>Hải Sản Mỹ Chi chuyên cá tầm sơ chế sạch sẽ, chia phần gọn gàng. Chọn món bên dưới rồi nhắn Zalo, bên mình báo giá và giao tận nơi.</p>
         <div class="heroactions">
           <a class="btn zalo zalo-link" href="#" target="_blank" rel="noopener">💬 Nhắn Zalo đặt hàng</a>
+          <a class="btn ghost tel-link" href="#">📞 Gọi ngay</a>
           <a class="btn ghost" href="#sanpham">Xem sản phẩm ↓</a>
         </div>
       </div>
@@ -120,15 +121,26 @@
         <div class="cbox"><b>Zalo / Điện thoại</b><span id="cZalo">…</span></div>
         <div class="cbox"><b>Giờ mở cửa</b><span id="cHours">…</span></div>
         <div class="cbox"><b>Khu vực giao hàng</b><span id="cArea">…</span></div>
+        <div class="cbox" id="addrBox" hidden><b>Địa chỉ cửa hàng</b><span id="cAddr"></span></div>
       </div>
-      <a class="btn zalo-link" href="#" target="_blank" rel="noopener">💬 Nhắn Zalo ngay</a>
+      <div class="cta">
+        <a class="btn zalo-link" href="#" target="_blank" rel="noopener">💬 Nhắn Zalo ngay</a>
+        <a class="btn tel-link" href="#">📞 Gọi điện</a>
+        <a class="btn" id="dirBtn" href="#" target="_blank" rel="noopener" hidden>📍 Chỉ đường</a>
+      </div>
+      <div class="mapwrap" id="mapWrap" hidden>
+        <iframe id="mapFrame" title="Bản đồ cửa hàng" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>© <span id="year"></span> Hải Sản Mỹ Chi · Chuyên cá tầm</footer>
 
-<a class="fab zalo-link" href="#" target="_blank" rel="noopener" aria-label="Nhắn Zalo">💬 Nhắn Zalo</a>
+<div class="fabs">
+  <a class="fab call tel-link" href="#" aria-label="Gọi điện">📞 Gọi</a>
+  <a class="fab zalo-link" href="#" target="_blank" rel="noopener" aria-label="Nhắn Zalo">💬 Nhắn Zalo</a>
+</div>
 <div class="toast" id="toast" role="status"></div>
 
 <script src="config.js"></script>

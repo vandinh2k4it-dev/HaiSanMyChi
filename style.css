@@ -120,12 +120,19 @@ details.rd ul,details.rd ol{padding-left:19px;margin:0}
 .cbox{background:#ffffff14;border:1px solid #ffffff33;border-radius:20px;padding:20px}
 .cbox b{display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#9fd0ff;margin-bottom:6px}
 .cbox span{font-size:16px;font-weight:700}
-.contact .btn{margin-top:28px;background:#fff;color:#075a91}
+.contact .btn{background:#fff;color:#075a91}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.mapwrap{margin-top:24px;border-radius:20px;overflow:hidden;border:1px solid #ffffff33;background:#0a2540}
+.mapwrap iframe{display:block;width:100%;height:340px;border:0}
+[hidden]{display:none!important}
 footer{background:#041d3c;color:#a8c8e6;text-align:center;font-size:13px;padding:26px 20px}
 
 /* floating zalo */
-.fab{position:fixed;right:16px;bottom:16px;z-index:30;display:flex;align-items:center;gap:8px;background:var(--zalo);color:#fff;text-decoration:none;font-weight:800;padding:13px 18px;border-radius:50px;box-shadow:0 10px 28px #0068ff66;min-height:48px}
+.fabs{position:fixed;right:16px;bottom:16px;z-index:30;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fab{display:flex;align-items:center;gap:8px;background:var(--zalo);color:#fff;text-decoration:none;font-weight:800;padding:13px 18px;border-radius:50px;box-shadow:0 10px 28px #0068ff66;min-height:48px}
 .fab:hover{background:#0053cc}
+.fab.call{background:#12805c;box-shadow:0 10px 28px #12805c66}
+.fab.call:hover{background:#0d6648}
 .toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,20px);background:#06264d;color:#fff;padding:12px 18px;border-radius:14px;font-size:14px;max-width:calc(100% - 32px);opacity:0;pointer-events:none;transition:.25s;z-index:40;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
@@ -145,7 +152,9 @@ footer{background:#041d3c;color:#a8c8e6;text-align:center;font-size:13px;padding
   .brand strong{font-size:15px}
   .brand img{width:42px;height:42px}
   .topbar .btn{display:none}
-  .fab{left:16px;right:16px;justify-content:center}
+  .fabs{left:16px;right:16px;flex-direction:row;align-items:stretch}
+  .fab{flex:1;justify-content:center}
+  .mapwrap iframe{height:260px}
   .toast{bottom:76px}
   body{padding-bottom:70px}
 }

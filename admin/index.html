@@ -131,6 +131,10 @@ textarea{min-height:76px;resize:vertical}
             <div><label for="sOpen">Giờ mở cửa</label><input id="sOpen" type="time" required></div>
             <div><label for="sClose">Giờ đóng cửa</label><input id="sClose" type="time" required></div>
           </div>
+          <label for="sPhone">Số điện thoại để khách gọi (để trống = dùng số Zalo)</label>
+          <input id="sPhone" type="text" inputmode="tel" maxlength="15">
+          <label for="sAddr">Địa chỉ cửa hàng (để hiện bản đồ và nút chỉ đường; để trống = ẩn bản đồ)</label>
+          <input id="sAddr" type="text" maxlength="200" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành">
           <label for="sArea">Khu vực giao hàng</label>
           <textarea id="sArea" maxlength="300"></textarea>
           <label for="sBanner">Thông báo / khuyến mãi (hiện trên đầu trang web)</label>
@@ -278,13 +282,17 @@ textarea{min-height:76px;resize:vertical}
       var s = {}; r.data.forEach(function (x) { s[x.key] = x.value; });
       $("#sZalo").value = s.zalo || ""; $("#sOpen").value = s.open_time || "08:00"; $("#sClose").value = s.close_time || "18:00";
       $("#sArea").value = s.delivery_area || ""; $("#sBanner").value = s.banner_text || ""; $("#sBannerOn").checked = s.banner_on === "true";
+      $("#sPhone").value = s.phone || ""; $("#sAddr").value = s.address || "";
     });
   }
   $("#sForm").addEventListener("submit", function (e) {
     e.preventDefault();
     var zalo = $("#sZalo").value.replace(/\D/g, "");
     if (zalo.length < 9) { say($("#sMsg"), "Số Zalo chưa đúng. Nhập số điện thoại, ví dụ 0336544246."); return; }
+    var phone = $("#sPhone").value.replace(/\D/g, "");
+    if (phone && phone.length < 9) { say($("#sMsg"), "Số điện thoại gọi chưa đúng. Nhập đủ số hoặc để trống."); return; }
     var rows = [
+      { key: "phone", value: phone }, { key: "address", value: $("#sAddr").value.trim() },
       { key: "zalo", value: zalo }, { key: "open_time", value: $("#sOpen").value }, { key: "close_time", value: $("#sClose").value },
       { key: "delivery_area", value: $("#sArea").value.trim() }, { key: "banner_text", value: $("#sBanner").value.trim() },
       { key: "banner_on", value: $("#sBannerOn").checked ? "true" : "false" }
